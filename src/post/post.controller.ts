@@ -15,7 +15,7 @@ import { AuthGuard, User } from 'src/auth/auth.guard';
 import { ZodValidationPipe } from 'src/lib/zod';
 import {
   CreateCommentDto,
-  createCommentDtoSchema,
+  CreateCommentDtoSchema,
 } from './dto/create-comment.dto';
 import { CreatePostDto, CreatePostDtoSchema } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -80,13 +80,12 @@ export class PostController {
 
   @Post(':id/comments/create')
   @UsePipes(
-    new ZodValidationPipe(createCommentDtoSchema, 'Invalid Comments Data'),
+    new ZodValidationPipe(CreateCommentDtoSchema, 'Invalid Fields Data'),
   )
   createComment(
     @Body() createComment: CreateCommentDto,
     @Param('id') id: string,
   ) {
-    console.log(id);
     return this.postService.createComment(id, createComment);
   }
 
